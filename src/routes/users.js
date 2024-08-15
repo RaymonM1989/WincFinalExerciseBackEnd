@@ -29,13 +29,20 @@ router.post('/', auth, async (req, res) =>
     try
     {
         const { username, password, name, email, phoneNumber, profilePicture } = req.body;
+        const requiredFields = [ "username", "password", "name", "email", "phoneNumber", "profilePicture" ];
+
+        if (requiredFields.some( field => !req.body[field] ))
+        {
+            return res.status(400).send("Can't create a new User with the given data, please double-check your request!");
+        }
+        
         const newUser = await createUser(username, password, name, email, phoneNumber, profilePicture);
         return res.status(201).json(newUser);
     }
     catch (error)
     {
         console.error(error);
-        return res.status(400).send("Can't create a new User with the given data, please double-check your request!");
+        return res.status(500).send('Something went wrong while creating a new User!');
     }
 });
 

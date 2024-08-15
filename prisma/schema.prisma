@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider      = "sqlite"
+  url           = "file:./dev.db"
+  relationMode  = "prisma"
 }
 
 model User {
@@ -46,7 +47,7 @@ model Property {
   title           String
   description     String
   location        String
-  pricePerNight   Float
+  pricePerNight   Decimal
   bedroomCount    Int
   bathRoomCount   Int
   maxGuestCount   Int
@@ -82,7 +83,7 @@ model Booking {
   checkinDate     DateTime
   checkoutDate    DateTime
   numberOfGuests  Int
-  totalPrice      Int
+  totalPrice      Decimal
   bookingStatus   String
 
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)

@@ -9,15 +9,16 @@ const getAllProperties = async (title, location, pricePerNight, bedroomCount, ba
     {
         where: 
         { 
-            title:          { contains: title           || undefined },
-            location:       { contains: location        || undefined },
-            pricePerNight:  { contains: pricePerNight   || undefined },
-            bedroomCount:   { contains: bedroomCount    || undefined },
-            bathRoomCount:  { contains: bathRoomCount   || undefined },
-            maxGuestCount:  { contains: maxGuestCount   || undefined },
-            hostId:         { contains: hostId          || undefined },
-            rating:         { contains: rating          || undefined },
-            amenities:      { contains: amenities       || undefined }
+            title:          { contains: title       || undefined },
+            location:       { contains: location    || undefined },
+            hostId:         { contains: hostId      || undefined },
+            amenities:      { contains: amenities   || undefined },
+            bedroomCount:   bedroomCount,
+            bathRoomCount:  bathRoomCount,
+            maxGuestCount:  maxGuestCount,
+            pricePerNight:  pricePerNight,
+            rating:         rating
+            
         }
     });
 };

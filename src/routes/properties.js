@@ -30,13 +30,20 @@ router.post('/', auth, async (req, res) =>
     try
     {
         const { title, description, location, pricePerNight, bedroomCount, bathRoomCount, maxGuestCount, hostId, rating } = req.body;
+        const requiredFields = [ "title", "description", "location", "pricePerNight", "bedroomCount", "bathRoomCount", "maxGuestCount", "hostId", "rating" ];
+
+        if (requiredFields.some( field => !req.body[field] ))
+        {
+            return res.status(400).send("Can't create a new Property with the given data, please double-check your request!");
+        }
+        
         const newProperty = await createProperty(title, description, location, pricePerNight, bedroomCount, bathRoomCount, maxGuestCount, hostId, rating);
         return res.status(201).json(newProperty);
     }
     catch (error)
     {
         console.error(error);
-        return res.status(400).send("Can't create a new Property with the given data, please double-check your request!");
+        return res.status(500).send(`Something went wrong while creating a new Property!`);
     }
 });
 
