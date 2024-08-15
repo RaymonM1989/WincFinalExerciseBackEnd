@@ -11,7 +11,7 @@ const getAllReviews = async (userId, propertyId, rating) =>
         { 
             userId:     { contains: userId      || undefined },
             propertyId: { contains: propertyId  || undefined },
-            rating:     { contains: rating      || undefined }
+            rating:     rating
         }
     });
 };
