@@ -29,13 +29,20 @@ router.post('/', auth, async (req, res) =>
     try
     {
         const { name } = req.body;
+        const requiredFields = [ "name" ];
+
+        if (requiredFields.some( field => !req.body[field] ))
+        {
+            return res.status(400).send("Can't create a new Amenity with the given data, please double-check your request!");
+        }
+        
         const newAmenity = await createAmenity(name);
         return res.status(201).json(newAmenity);
     }
     catch (error)
     {
         console.error(error);
-        return res.status(400).send("Can't create a new Amenity with the given data, please double-check your request!");
+        return res.status(500).send('Something went wrong while creating a new Amenity!');
     }
 });
 
